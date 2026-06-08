@@ -1,4 +1,4 @@
-# PokéPrice Search
+# Pokevault v5.0
 
 A production-ready Pokémon card price search app powered by the [PokémonPriceTracker API v2](https://www.pokemonpricetracker.com).
 

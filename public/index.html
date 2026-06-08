@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PokéPrice Search</title>
+  <meta name="description" content="Search Pokémon card prices instantly. Search by card name, number (199/165), or set." />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ── Header ─────────────────────────────────────────────── -->
+  <header>
+    <div class="logo">
+      <span class="logo-mark">PokéPrice</span>
+      <span class="logo-sub">Card Search</span>
+    </div>
+    <span class="header-badge">API v2 · Live Prices</span>
+  </header>
+
+  <!-- ── Search Panel ───────────────────────────────────────── -->
+  <div class="search-panel">
+
+    <div class="search-row">
+
+      <!-- Search input -->
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="199/165  ·  Charizard  ·  Pikachu ex  ·  001/165"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Search Pokémon cards"
+        />
+      </div>
+
+      <!-- Optional set filter -->
+      <input
+        type="text"
+        id="set-input"
+        placeholder="Set name (optional)"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Filter by set name"
+      />
+
+      <!-- Language toggle -->
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button class="lang-btn active" data-lang="english"  aria-pressed="true">🇺🇸 EN</button>
+        <button class="lang-btn"        data-lang="japanese" aria-pressed="false">🇯🇵 JP</button>
+      </div>
+
+      <!-- Search button -->
+      <button class="btn-search" id="search-btn" aria-label="Search">Search</button>
+
+    </div>
+
+    <!-- Quick-search hint chips -->
+    <div class="hint-row" aria-label="Quick searches">
+      <span class="hint-chip" data-query="199/165"       title="Charizard ex from 151">199/165</span>
+      <span class="hint-chip" data-query="001/165"       title="Bulbasaur from 151">001/165</span>
+      <span class="hint-chip" data-query="025/165"       title="Pikachu from 151">025/165</span>
+      <span class="hint-chip" data-query="Charizard ex"  title="Charizard ex cards">Charizard ex</span>
+      <span class="hint-chip" data-query="Umbreon"       title="Umbreon cards">Umbreon</span>
+      <span class="hint-chip" data-query="Mewtwo"        data-lang="japanese" title="Mewtwo — JP prices">Mewtwo 🇯🇵</span>
+    </div>
+
+  </div>
+
+  <!-- ── Status bar ─────────────────────────────────────────── -->
+  <div class="status-bar hidden" id="status-bar">
+    <div class="result-count" id="result-count"></div>
+    <div class="view-toggle" role="group" aria-label="View">
+      <button class="view-btn active" data-view="grid" aria-label="Grid view">⊞</button>
+      <button class="view-btn"        data-view="list" aria-label="List view">☰</button>
+    </div>
+  </div>
+
+  <!-- ── Welcome ────────────────────────────────────────────── -->
+  <div id="welcome-state">
+    <div class="welcome-title">Search any card.<br/>By name or number.</div>
+    <p class="welcome-sub">
+      Type a card number like <strong>199/165</strong> to instantly find the
+      Charizard ex from 151 — no name required. Or search by name, set, or rarity.
+      Switch to Japanese for JP market prices.
+    </p>
+    <div class="example-searches" role="list">
+      <button class="example-chip" data-query="199/165"       role="listitem">199/165 — 151 Charizard</button>
+      <button class="example-chip" data-query="Pikachu ex"    role="listitem">Pikachu ex</button>
+      <button class="example-chip" data-query="Umbreon VMAX"  role="listitem">Umbreon VMAX</button>
+      <button class="example-chip" data-query="001/165"       role="listitem">001/165 — Bulbasaur</button>
+      <button class="example-chip" data-query="Mewtwo" data-lang="japanese" role="listitem">Mewtwo 🇯🇵</button>
+      <button class="example-chip" data-query="Rayquaza"      role="listitem">Rayquaza</button>
+    </div>
+  </div>
+
+  <!-- ── Loading ────────────────────────────────────────────── -->
+  <div id="loading" role="status" aria-live="polite">
+    <div class="spinner"></div>
+    <div class="loading-text">Fetching prices…</div>
+  </div>
+
+  <!-- ── Empty ──────────────────────────────────────────────── -->
+  <div id="empty-state" role="status" aria-live="polite">
+    <div class="state-icon">🔍</div>
+    <div class="state-title">No cards found</div>
+    <div class="state-desc">
+      Try a different card name or number. Card numbers like <code>199/165</code>
+      search directly by number — try adding the set name in the set field to narrow results.
+    </div>
+  </div>
+
+  <!-- ── Error ──────────────────────────────────────────────── -->
+  <div id="error-state" role="alert" aria-live="assertive">
+    <div class="state-icon">⚠</div>
+    <div class="state-title">Something went wrong</div>
+    <div class="state-desc" id="error-msg"></div>
+  </div>
+
+  <!-- ── Results ────────────────────────────────────────────── -->
+  <div id="results-grid" class="hidden" role="list" aria-label="Search results"></div>
+
+</div>
+
+<!-- ── Modal ──────────────────────────────────────────────────── -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Card detail">
+  <div class="modal">
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

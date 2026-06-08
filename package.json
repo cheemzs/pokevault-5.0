@@ -1,0 +1,9 @@
+{
+  "name": "pokeprice-search",
+  "version": "1.0.0",
+  "description": "Pokémon card price search — powered by PokémonPriceTracker API v2",
+  "scripts": {
+    "dev": "npx serve public -l 3000"
+  },
+  "dependencies": {}
+}

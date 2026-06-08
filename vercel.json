@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "^/api/(.*)", "dest": "/api/$1" },
+    { "src": "^/$",         "dest": "/public/index.html" },
+    { "src": "^/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "^/js/(.*)",  "dest": "/public/js/$1" }
+  ]
+}
